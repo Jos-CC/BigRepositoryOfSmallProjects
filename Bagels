@@ -1,0 +1,44 @@
+#In Bagels, a deductive logic game, you
+#must guess a secret three-digit number
+#based on clues. The game offers one of
+#the following hints in response to your guess:
+#“Pico” when your guess has a correct digit in the
+#wrong place, “Fermi” when your guess has a correct
+#digit in the correct place, and “Bagels” if your guess
+#has no correct digits. You have 10 tries to guess the
+#secret number.
+
+
+import random
+
+
+choice_of_nums = ['123', '345', '674', '887', '356', '487', '916']
+random_three_num = random.choice(choice_of_nums)
+count_bagel = 0
+count_fermi = 0
+chances = 10
+
+while chances > 0:
+    guess = input(f'Guess the three digit number! You have {chances} to guess! ')
+    while len(guess) != 3:
+        guess = input('You must choose a three digit number! Try again! ')
+    while not guess.isdigit():
+        guess = input('You must choose integer values! ')
+
+    number_is_present = any(number in guess for number in random_three_num)
+
+    if guess == random_three_num:
+        print('YOU WIN! Well done')
+        break
+    elif not number_is_present:
+        print('Bagel')
+    else:
+        index_is_right = False
+        for i in range(len(guess)):
+            if guess[i] == random_three_num[i]:
+                index_is_right = True
+        if index_is_right:
+            print('Fermi')
+        else:
+            print('Pico')
+    chances -= 1 
